@@ -2,110 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Information Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        button {
-            width: 100%;
-            padding: 10px 15px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:disabled {
-            background-color: #ccc;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Post a Job</h1>
-        <div class="form-group">
-            <label for="job-title">Job Title</label>
-            <input type="text" id="job-title" required>
-        </div>
-        <div class="form-group">
-            <label for="job-description">Job Description</label>
-            <textarea id="job-description" rows="4" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="contact-email">Contact Email</label>
-            <input type="email" id="contact-email" required>
-        </div>
-        <div class="form-group">
-            <label for="contact-phone">Contact Phone</label>
-            <input type="tel" id="contact-phone" >
-        </div>
-        <button id="submit-btn">Submit</button>
-    </div>
-
+    <title>python-telegram-bot Example WebApp</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        Telegram.WebApp.ready();
+    <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+</head>
+<script type="text/javascript">
+    const colorPicker = new iro.ColorPicker('#picker', {
+        borderColor: "#ffffff",
+        borderWidth: 1,
+        width: Math.round(document.documentElement.clientWidth / 2),
+    });
+    colorPicker.on('color:change', function (color) {
+        document.body.style.background = color.hexString;
+    });
 
-        function validatePhoneNumber(phoneNumber) {
-            const phoneRegex = /^\+?\d{10,15}$/; // Regex for international phone numbers
-            return phoneRegex.test(phoneNumber);
-        }
-
-
-        document.getElementById('submit-btn').addEventListener('click', () => {
-            const jobTitle = document.getElementById('job-title').value;
-            const jobDescription = document.getElementById('job-description').value;
-            const contactEmail = document.getElementById('contact-email').value;
-            const contactPhone = document.getElementById('contact-phone').value;
-            if (jobTitle && jobDescription) {
-                const jobDetails = {
-                    jobTitle,
-                    jobDescription,
-                    contactEmail,
-                    contactPhone
-                };
-
-                Telegram.WebApp.sendData(JSON.stringify(jobDetails)); // Send data to the bot
-                Telegram.WebApp.close(); // Close the web app
-            } else {
-                alert('Please fill out all fields');
-            }
-        });
-    </script>
+    Telegram.WebApp.ready();
+    Telegram.WebApp.MainButton.setText('Choose Color').show().onClick(function () {
+        const data = JSON.stringify({hex: colorPicker.color.hexString, rgb: colorPicker.color.rgb});
+        Telegram.WebApp.sendData(data);
+        Telegram.WebApp.close();
+    });
+</script>
+<body style="background-color: #ffffff">
+<div style="position: absolute; margin-top: 5vh; margin-left: 5vw; height: 90vh; width: 90vw; border-radius: 5vh; background-color: var(--tg-theme-bg-color); box-shadow: 0 0 2vw
+ #000000;">
+    <div id="picker"
+         style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%"></div>
+</div>
 </body>
+<script type="text/javascript">
+    Telegram.WebApp.expand();
+</script>
 </html>
