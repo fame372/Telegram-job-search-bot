@@ -73,12 +73,11 @@
         </div>
         <div class="form-group">
             <label for="contact-phone">Contact Phone</label>
-            <input type="tel" id="contact-phone" >
+            <input type="tel" id="contact-phone">
         </div>
         <button id="submit-btn">Submit</button>
     </div>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         Telegram.WebApp.ready();
 
@@ -87,33 +86,33 @@
             return phoneRegex.test(phoneNumber);
         }
 
-
         console.log('Form is ready.');
 
-document.getElementById('submit-btn').addEventListener('click', () => {
-    const jobTitle = document.getElementById('job-title').value;
-    const jobDescription = document.getElementById('job-description').value;
-    const contactEmail = document.getElementById('contact-email').value;
-    const contactPhone = document.getElementById('contact-phone').value;
+        document.getElementById('submit-btn').addEventListener('click', () => {
+            const jobTitle = document.getElementById('job-title').value;
+            const jobDescription = document.getElementById('job-description').value;
+            const contactEmail = document.getElementById('contact-email').value;
+            const contactPhone = document.getElementById('contact-phone').value;
 
-    console.log('Form submitted with:', { jobTitle, jobDescription, contactEmail, contactPhone });
-    
-    if (jobTitle && jobDescription) {
-        const jobDetails = {
-            jobTitle,
-            jobDescription,
-            contactEmail: contactEmail || 'N/A',
-            contactPhone: contactPhone || 'N/A'
-        };
+            console.log('Form submitted with:', { jobTitle, jobDescription, contactEmail, contactPhone });
 
-        console.log('Sending data to Telegram:', jobDetails);
-        Telegram.WebApp.sendData(JSON.stringify(jobDetails)); // Send data to the bot
-        Telegram.WebApp.close(); // Close the web app
-    } else {
-        alert('Please fill out the job title and description.');
-    }
-});
+            if (jobTitle && jobDescription) {
+                const jobDetails = {
+                    jobTitle,
+                    jobDescription,
+                    contactEmail: contactEmail || 'N/A',
+                    contactPhone: contactPhone || 'N/A'
+                };
 
+                console.log('Sending data to Telegram:', jobDetails);
+                Telegram.WebApp.sendData(JSON.stringify(jobDetails)); // Send data to the bot
+                Telegram.WebApp.close(); // Close the web app
+            } else {
+                alert('Please fill out the job title and description.');
+            }
+        });
+
+        Telegram.WebApp.expand();
     </script>
 </body>
 </html>
